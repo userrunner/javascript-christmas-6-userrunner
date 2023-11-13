@@ -45,5 +45,17 @@ class Order {
 
     return menuNames;
   }
+
+  getDayDiscountMenuCount(category) {
+    return Object.keys(MenuBoard[category]).reduce((acc, key) => {
+      const index = this.#orderMenuNames.findIndex(element => element === key);
+      if (index > -1) {
+        return acc + parseInt(this.#orderMenuCounts[index], 10);
+      }
+      return acc;
+    }, 0);
+  }
+
+
 };
 export default Order;
