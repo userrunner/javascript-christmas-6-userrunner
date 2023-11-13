@@ -4,14 +4,13 @@ class VisitDate {
   #date;
 
   constructor(date) {
-    this.#validation(date);
+    Validation.notNumber(date);
+    Validation.dateRange(date);
     this.#date = date;
   }
 
-  #validation(date) {
-    console.log(date);
-    Validation.notNumber(date);
-    Validation.dateRange(date);
+  getVisitDate() {
+    return this.#date;
   }
 }
 
