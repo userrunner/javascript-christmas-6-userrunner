@@ -1,14 +1,19 @@
 class Discount {
-  constructor(visitDate, order) {
-    this.calculateDiscount(visitDate, order);
-  }
+  #discountDetails;
 
-  calculateDiscount(visitDate, order) {
+  constructor(visitDate, order) {
     const newDate = new Date(`2023-12-${visitDate}`);
+    const week = newDate.getDay();
     const mainCount = order.getDayDiscountMenuCount('main');
     const dessertCount = order.getDayDiscountMenuCount('dessert');
-    const week = newDate.getDay();
+    this.#discountDetails = this.#calculateDiscount(week, mainCount, dessertCount, visitDate);
+  }
 
+  getDiscountDetails() {
+    return this.#discountDetails;
+  }
+
+  #calculateDiscount(week, mainCount, dessertCount, visitDate) {
     const weekdayDiscount = this.#calculateWeekdayDiscount(week, dessertCount) || 0;
     const holidayDiscount = this.#calculateHolidayDiscount(week, mainCount) || 0;
     const dDayDiscount = this.#calculateDDayDiscount(visitDate) || 0;
