@@ -13,18 +13,26 @@ class Order {
 
   constructor(inputOrderMenu) {
     Validation.menuFormat(inputOrderMenu);
-    const { orderMenuNames, orderMenuCounts } = this.#setOrderMenus(inputOrderMenu);
+    const { orderMenuNames, orderMenuCounts } = this.#formattingOrderMenus(inputOrderMenu);
 
     const menuBoardNames = this.#joinMenuBoardNames(orderMenuNames, orderMenuCounts);
     Validation.notFoundMenu(menuBoardNames, orderMenuNames);
     Validation.menuCount(orderMenuCounts);
+    Validation.menuMaxCount(orderMenuCounts);
     Validation.duplicationMenu(orderMenuNames);
 
     this.#orderMenuNames = orderMenuNames;
     this.#orderMenuCounts = orderMenuCounts;
   }
 
-  #setOrderMenus(inputOrderMenu) {
+  getOrderInfo() {
+    return {
+      orderMenuNames: this.#orderMenuNames,
+      orderMenuCounts: this.#orderMenuCounts
+    };
+  }
+
+  #formattingOrderMenus(inputOrderMenu) {
     const orderInfo = { orderMenuNames: [], orderMenuCounts: [] };
 
     inputOrderMenu.split(',').forEach((menu) => {
@@ -56,6 +64,19 @@ class Order {
     }, 0);
   }
 
+  getTotalAmount() {
+    let price = 0;
 
+    Object.keys(MenuBoard).forEach((category) => {
+      Object.keys(MenuBoard[category]).forEach((menuName) => {
+        const index = this.#orderMenuNames.findIndex((element => element === menuName));
+        if (index > -1) {
+          price += (MenuBoard[category][menuName] * this.#orderMenuCounts[index]);
+        }
+      });
+    });
+
+    return price;
+  }
 };
 export default Order;
