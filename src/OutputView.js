@@ -17,6 +17,10 @@ const OutputView = {
     printBeforeTotalAmount(amount) {
         Console.print("\n<할인 전 총주문 금액>");
         Console.print(`${amount.toLocaleString('ko-KR')}원`);
+    },
+    printGift(beforeAmount) {
+        Console.print("\n<증정 메뉴>");
+        Console.print(beforeAmount > 120000 ? '샴페인 1개' : '없음');
     }
 };
 
