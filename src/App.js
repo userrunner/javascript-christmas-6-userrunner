@@ -17,6 +17,7 @@ class App {
     const beforeAmount = order.getTotalAmount();
     OutputView.printBeforeTotalAmount(beforeAmount);
     OutputView.printGift(beforeAmount);
+    OutputView.printDiscountList(discount.getDiscountDetails(), beforeAmount);
   }
 }
 
