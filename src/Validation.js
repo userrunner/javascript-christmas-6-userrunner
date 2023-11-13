@@ -28,6 +28,12 @@ const Validation = {
       throw new Error(Messages.menuError);
     }
   },
+  menuMaxCount(menuCounts) {
+    const totalCount = menuCounts.reduce((acc, count) => acc + count, 0);
+    if (totalCount > 20) {
+      throw new Error(Messages.menuMaxError);
+    }
+  },
   duplicationMenu(orderMenuNames) {
     if (new Set(orderMenuNames).size !== orderMenuNames.length) {
       throw new Error(Messages.menuError);
