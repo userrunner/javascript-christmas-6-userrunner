@@ -39,5 +39,13 @@ const Validation = {
       throw new Error(Messages.menuError);
     }
   },
+  onlyDrink(drinkMenu, orderMenuNames) {
+    const matchedList = Object.keys(drinkMenu).filter((drinkName) => orderMenuNames.includes(drinkName));
+    const fail = matchedList.length === orderMenuNames.length;
+
+    if (fail) {
+      throw new Error(Messages.onlyDrinkError);
+    }
+  }
 };
 export default Validation;

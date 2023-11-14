@@ -20,6 +20,7 @@ class Order {
     Validation.menuCount(orderMenuCounts);
     Validation.menuMaxCount(orderMenuCounts);
     Validation.duplicationMenu(orderMenuNames);
+    Validation.onlyDrink(MenuBoard.drink, orderMenuNames);
 
     this.#orderMenuNames = orderMenuNames;
     this.#orderMenuCounts = orderMenuCounts;
