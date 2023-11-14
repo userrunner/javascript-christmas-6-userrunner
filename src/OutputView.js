@@ -18,26 +18,28 @@ const OutputView = {
     Console.print("\n<할인 전 총주문 금액>");
     Console.print(`${amount.toLocaleString('ko-KR')}원`);
   },
-  printGift(beforeAmount) {
+  printGift(discountLists) {
     Console.print("\n<증정 메뉴>");
-    Console.print(beforeAmount > 120000 ? '샴페인 1개' : '없음');
+    Console.print(discountLists.giftDiscount ? '샴페인 1개' : '없음');
   },
-  printDiscountList(discountDetails, beforeAmount) {
-    const eventTitles = ['평일 할인', '주말 할인', '크리스마스 디데이 할인', '특별 할인'];
+  printDiscountList(discountLists) {
+    const eventTitles = ['평일 할인', '주말 할인', '크리스마스 디데이 할인', '특별 할인', '증정 이벤트'];
     Console.print("\n<혜택 내역>");
     let count = 0;
-    Object.keys(discountDetails).forEach((key, index) => {
-      if (discountDetails[key]) {
+    Object.keys(discountLists).forEach((key, index) => {
+      if (discountLists[key]) {
         count += 1;
-        Console.print(`${eventTitles[index]}: -${discountDetails[key].toLocaleString('ko-KR')}원`);
+        Console.print(`${eventTitles[index]}: -${discountLists[key].toLocaleString('ko-KR')}원`);
       }
     });
-    if (beforeAmount > 12000) {
-      Console.print(`증정 이벤트: -25,000원`);
-    }
     if (count === 0) {
       Console.print('없음');
     }
+  },
+  printTotalDiscountAmount(discountAmount) {
+    Console.print("\n<총혜택 금액>");
+    const targetAmount = discountAmount ? `-${discountAmount.toLocaleString('ko-KR')}` : 0;
+    Console.print(`${targetAmount}원`);
   }
 };
 
