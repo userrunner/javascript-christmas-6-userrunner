@@ -25,13 +25,6 @@ class Order {
     this.#orderMenuCounts = orderMenuCounts;
   }
 
-  getOrderInfo() {
-    return {
-      orderMenuNames: this.#orderMenuNames,
-      orderMenuCounts: this.#orderMenuCounts
-    };
-  }
-
   #formattingOrderMenus(inputOrderMenu) {
     const orderInfo = { orderMenuNames: [], orderMenuCounts: [] };
 
@@ -54,7 +47,14 @@ class Order {
     return menuNames;
   }
 
-  getDayDiscountMenuCount(category) {
+  getOrderInfo() {
+    return {
+      orderMenuNames: this.#orderMenuNames,
+      orderMenuCounts: this.#orderMenuCounts
+    };
+  }
+
+  dayDiscountMenuCount(category) {
     return Object.keys(MenuBoard[category]).reduce((acc, key) => {
       const index = this.#orderMenuNames.findIndex(element => element === key);
       if (index > -1) {
@@ -64,7 +64,7 @@ class Order {
     }, 0);
   }
 
-  getTotalAmount() {
+  totalAmount() {
     let price = 0;
 
     Object.keys(MenuBoard).forEach((category) => {
