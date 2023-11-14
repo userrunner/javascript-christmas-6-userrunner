@@ -3,7 +3,7 @@ import Messages from "./Message.js";
 const Validation = {
   notNumber(date) {
     if (isNaN(date)) {
-      throw new Error(Messages.numberError);
+      throw new Error(Messages.dateError);
     }
   },
   dateRange(date) {
