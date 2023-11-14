@@ -21,6 +21,7 @@ class App {
     OutputView.printDiscountList(discountLists);
     const discountAmount = discount.calcTotalDiscountAmount();
     OutputView.printTotalDiscountAmount(discountAmount);
+    OutputView.printAfterTotalAmount(beforeAmount, discountAmount);
   }
 }
 

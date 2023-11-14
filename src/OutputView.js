@@ -40,6 +40,10 @@ const OutputView = {
     Console.print("\n<총혜택 금액>");
     const targetAmount = discountAmount ? `-${discountAmount.toLocaleString('ko-KR')}` : 0;
     Console.print(`${targetAmount}원`);
+  },
+  printAfterTotalAmount(beforeAmount, discountAmount) {
+    Console.print("\n<할인 후 예상 결제 금액>");
+    Console.print(`${(beforeAmount - discountAmount).toLocaleString('ko-KR')}원`);    
   }
 };
 
