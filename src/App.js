@@ -22,6 +22,7 @@ class App {
     const discountAmount = discount.calcTotalDiscountAmount();
     OutputView.printTotalDiscountAmount(discountAmount);
     OutputView.printAfterTotalAmount(beforeAmount, discountAmount);
+    OutputView.printEventBadge(discountAmount);
   }
 }
 

@@ -43,7 +43,19 @@ const OutputView = {
   },
   printAfterTotalAmount(beforeAmount, discountAmount) {
     Console.print("\n<할인 후 예상 결제 금액>");
-    Console.print(`${(beforeAmount - discountAmount).toLocaleString('ko-KR')}원`);    
+    Console.print(`${(beforeAmount - discountAmount).toLocaleString('ko-KR')}원`);
+  },
+  printEventBadge(discountAmount) {
+    Console.print("\n<12월 이벤트 배지>");
+    if (discountAmount >= 20000) {
+      Console.print("산타");
+    } else if (discountAmount >= 10000) {
+      Console.print("트리");
+    } else if (discountAmount >= 5000) {
+      Console.print("별");
+    } else {
+      Console.print("없음");
+    }
   }
 };
 
