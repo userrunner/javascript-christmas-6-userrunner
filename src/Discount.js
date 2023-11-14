@@ -1,25 +1,25 @@
+const GIFT_AMOUNT = 120000;
+
 class Discount {
   #discountDetails;
 
   constructor(visitDate, order) {
     const newDate = new Date(`2023-12-${visitDate}`);
     const week = newDate.getDay();
-    const mainCount = order.getDayDiscountMenuCount('main');
-    const dessertCount = order.getDayDiscountMenuCount('dessert');
-    this.#discountDetails = this.#calculateDiscount(week, mainCount, dessertCount, visitDate);
+    const mainCount = order.dayDiscountMenuCount('main');
+    const dessertCount = order.dayDiscountMenuCount('dessert');
+    const beforeTotalAmount = order.totalAmount();
+    this.#discountDetails = this.#calculateDiscount(week, mainCount, dessertCount, visitDate, beforeTotalAmount);
   }
 
-  getDiscountDetails() {
-    return this.#discountDetails;
-  }
-
-  #calculateDiscount(week, mainCount, dessertCount, visitDate) {
+  #calculateDiscount(week, mainCount, dessertCount, visitDate, beforeTotalAmount) {
     const weekdayDiscount = this.#calculateWeekdayDiscount(week, dessertCount) || 0;
     const holidayDiscount = this.#calculateHolidayDiscount(week, mainCount) || 0;
     const dDayDiscount = this.#calculateDDayDiscount(visitDate) || 0;
     const specialDiscount = this.#calculateSpecialDiscount(week, visitDate) || 0;
+    const giftDiscount = this.#calculateGiftDiscount(beforeTotalAmount) || 0;
 
-    return { weekdayDiscount, holidayDiscount, dDayDiscount, specialDiscount };
+    return { weekdayDiscount, holidayDiscount, dDayDiscount, specialDiscount, giftDiscount };
   }
 
   #calculateWeekdayDiscount(week, dessertCount) {
@@ -44,6 +44,20 @@ class Discount {
     if (week === 0 || visitDate === 25) {
       return 1000;
     }
+  }
+
+  #calculateGiftDiscount(beforeTotalAmount) {
+    if (beforeTotalAmount >= GIFT_AMOUNT) {
+      return 25000;
+    }
+  }
+
+  getDiscountDetails() {
+    return this.#discountDetails;
+  }
+
+  calcTotalDiscountAmount() {
+    return Object.keys(this.#discountDetails).reduce((acc, key) => acc + this.#discountDetails[key], 0);
   }
 }
 
