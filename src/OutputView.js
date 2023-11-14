@@ -20,13 +20,13 @@ const OutputView = {
   },
   printGift(discountLists) {
     Console.print("\n<증정 메뉴>");
-    Console.print(discountLists.giftDiscount ? '샴페인 1개' : '없음');
+    Console.print(discountLists?.giftDiscount ? '샴페인 1개' : '없음');
   },
   printDiscountList(discountLists) {
     const eventTitles = ['평일 할인', '주말 할인', '크리스마스 디데이 할인', '특별 할인', '증정 이벤트'];
     Console.print("\n<혜택 내역>");
     let count = 0;
-    Object.keys(discountLists).forEach((key, index) => {
+    Object.keys(discountLists)?.forEach((key, index) => {
       if (discountLists[key]) {
         count += 1;
         Console.print(`${eventTitles[index]}: -${discountLists[key].toLocaleString('ko-KR')}원`);

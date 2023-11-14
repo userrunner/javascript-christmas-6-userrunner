@@ -1,4 +1,5 @@
 const GIFT_AMOUNT = 120000;
+const MIN_AMOUNT_FOR_DISCOUNT = 10000;
 
 class Discount {
   #discountDetails;
@@ -19,7 +20,9 @@ class Discount {
     const specialDiscount = this.#calculateSpecialDiscount(week, visitDate) || 0;
     const giftDiscount = this.#calculateGiftDiscount(beforeTotalAmount) || 0;
 
-    return { weekdayDiscount, holidayDiscount, dDayDiscount, specialDiscount, giftDiscount };
+    return beforeTotalAmount > MIN_AMOUNT_FOR_DISCOUNT
+      ? { weekdayDiscount, holidayDiscount, dDayDiscount, specialDiscount, giftDiscount }
+      : {};
   }
 
   #calculateWeekdayDiscount(week, dessertCount) {
@@ -57,7 +60,10 @@ class Discount {
   }
 
   calcTotalDiscountAmount() {
-    return Object.keys(this.#discountDetails).reduce((acc, key) => acc + this.#discountDetails[key], 0);
+    if (Object.keys(this.#discountDetails).length > 0) {
+      return Object.keys(this.#discountDetails).reduce((acc, key) => acc + this.#discountDetails[key], 0);
+    }
+    return 0;
   }
 }
 
